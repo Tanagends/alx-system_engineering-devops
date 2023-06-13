@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%.f" $NUM
+printf "%.f" $NUM | sort
