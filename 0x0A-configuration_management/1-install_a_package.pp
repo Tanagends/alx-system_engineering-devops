@@ -1,3 +1,4 @@
+#!/usr/bin/pup
 # Installs flask
 
 package { 'Flask':
