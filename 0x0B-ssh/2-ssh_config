@@ -1,0 +1,3 @@
+#SSH file configuration to use private key and refuse password authentication.
+PasswordAuthentication no
+IdentityFile ~/.ssh/school
