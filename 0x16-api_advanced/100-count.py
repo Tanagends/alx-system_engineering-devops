@@ -1,21 +1,18 @@
 #!/usr/bin/python3
-"""Function to print hot posts on a given Reddit subreddit."""
+""" recursive function that queries the Reddit API"""
 import requests
+import sys
+after = None
+count_dic = []
 
 
-def top_ten(subreddit):
-    """Print the titles of the 10 hottest posts on a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
-    }
-    params = {
-        "limit": 10
-    }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
-        print("None")
-        return
-    results = response.json().get("data")
-    [print(c.get("data").get("title")) for c in results.get("children")]
+def count_words(subreddit, word_list):
+    """parses the title of all hot articles, and prints a sorted count of given
+    keywords (case-insensitive, delimited by spaces) """
+    global after
+    global count_dic
+    headers = {'User-Agent': 'xica369'}
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    parameters = {'after': after}
+    response = requests.get(url, headers=headers, allow_redirects=False,
+                            params=parameters)
