@@ -4,17 +4,20 @@ import requests
 
 
 def top_ten(subreddit):
-    '''returns number of subscribers or 0 if subreddit is invalid'''
-    if subreddit is None or not isinstance(subreddit, str):
-        print(None)
-        return
+    '''returns the top ten reddit posts'''
+
+    headers = {'User-Agent': 'Tanatswa'}
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    res = requests.get(url, headers={'User-Agent': 'DreMukare'}).json()
-    if 'error' in res.keys():
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code == 200:
+        hot_posts = response.json().get('data').get('children')
+        for i, title in enumerate(hot_posts):
+            if i < 9:
+                print(hot_posts[i].get('data').get('title'))
+            else:
+                break
+    else:
         print(None)
-        return
-    all_posts = res.get('data').get('children')
-    i = 0
-    while i < 10:
-        print(all_posts[i].get('data').get('title'))
-        i += 1
+
+
+top_ten('technology')
