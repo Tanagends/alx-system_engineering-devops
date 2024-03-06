@@ -11,13 +11,10 @@ def top_ten(subreddit):
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code == 200:
         hot_posts = response.json().get('data').get('children')
-        for i, title in enumerate(hot_posts):
+        for i, _ in enumerate(hot_posts):
             if i < 9:
                 print(hot_posts[i].get('data').get('title'))
             else:
                 break
     else:
         print(None)
-
-
-top_ten('technology')
