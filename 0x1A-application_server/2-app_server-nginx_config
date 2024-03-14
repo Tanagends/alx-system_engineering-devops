@@ -1,0 +1,12 @@
+# /etc/nginx/sites-available/airbnb-onepage
+
+server {
+    listen 80;
+    server_name _;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://localhost:5000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
